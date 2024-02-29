@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    container_name: drizzle-auth
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - DRIZZLE_AUTH_PGDATA:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      - ADMINER_DESIGN=dracula
+    ports:
+      - 8095:8080
+
+volumes:
+  DRIZZLE_AUTH_PGDATA:
